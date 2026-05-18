@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Story — Shin Haeya & Yoon Juyeon</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Serif+KR:wght@200;300;400&family=Noto+Sans+KR:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --rose: #c4567a;
+    --rose-light: #e8a0b8;
+    --rose-pale: #f9eef3;
+    --navy: #2b3f5c;
+    --gold: #b8966a;
+    --gold-light: #d4b896;
+    --cream: #fdf8f4;
+    --ink: #2a2228;
+    --muted: #7a6e74;
+    --fog: #f0eaed;
+  }
+  html { scroll-behavior: smooth; }
+
+  /* ── 기본(모바일) 바디 ── */
+  body {
+    background: #1a1520;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: var(--ink);
+  }
+
+  /* 모바일: 전체 화면을 꽉 채우는 단일 컬럼 */
+  .page-frame {
+    width: 100%;
+    max-width: 430px;
+    min-height: 100vh;
+    background: var(--cream);
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* ── 히어로 ── */
+  .story-hero {
+    min-height: 280px;
+    padding: 36px 24px 32px;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 20%, rgba(196,86,122,0.22) 0%, transparent 65%),
+      radial-gradient(ellipse 70% 70% at 90% 90%, rgba(43,63,92,0.35) 0%, transparent 65%),
+      linear-gradient(175deg, #0d0a12 0%, #160f1e 54%, #0a0e18 100%);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .top-link {
+    color: rgba(255,255,255,0.62);
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 1px;
+    width: fit-content;
+    transition: color 0.2s;
+  }
+  .top-link:hover { color: rgba(255,255,255,0.9); }
+  .story-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 5px;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .story-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.15;
+  }
+  .story-subtitle {
+    margin-top: 14px;
+    font-family: 'Noto Serif KR', serif;
+    font-size: 12.5px;
+    font-weight: 300;
+    line-height: 1.9;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* ── 메인 섹션 ── */
+  .main-section {
+    padding: 30px 22px 20px;
+  }
+  .section-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .section-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-style: italic;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .hint {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--muted);
+  }
+
+  /* ── 글 목록 ── */
+  .story-list { display: flex; flex-direction: column; gap: 14px; }
+  .story-card {
+    padding: 20px 18px;
+    background: white;
+    border-radius: 16px;
+    border: 0.5px solid rgba(184,150,106,0.22);
+    box-shadow: 0 8px 30px rgba(43,35,48,0.045);
+  }
+  .story-card h3 {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 7px;
+    line-height: 1.5;
+  }
+  .story-date {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .story-content {
+    white-space: pre-wrap;
+    font-family: 'Noto Serif KR', serif;
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 2;
+    color: var(--muted);
+  }
+  .story-actions { margin-top: 14px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .empty {
+    text-align: center;
+    padding: 36px 18px;
+    color: var(--muted);
+    font-family: 'Noto Serif KR', serif;
+    font-size: 13px;
+    line-height: 1.9;
+    background: white;
+    border-radius: 16px;
+    border: 0.5px solid rgba(184,150,106,0.18);
+  }
+
+  /* ── 에디터 패널 (모바일: 글 목록 아래에) ── */
+  .editor-section {
+    padding: 0 22px 30px;
+  }
+  .panel {
+    background: white;
+    border: 0.5px solid rgba(196,86,122,0.2);
+    border-radius: 16px;
+    padding: 22px 18px;
+    box-shadow: 0 8px 30px rgba(43,35,48,0.06);
+  }
+
+  /* ── 폼 요소 ── */
+  input, textarea {
+    width: 100%;
+    border: 0.5px solid rgba(196,86,122,0.25);
+    background: #fffdfb;
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+    outline: none;
+    margin-bottom: 10px;
+  }
+  textarea { min-height: 160px; resize: vertical; line-height: 1.8; }
+  input:focus, textarea:focus { border-color: rgba(196,86,122,0.7); box-shadow: 0 0 0 3px rgba(196,86,122,0.08); }
+
+  /* ── 버튼 ── */
+  .button-row { display: flex; gap: 9px; flex-wrap: wrap; }
+  button, .admin-toggle {
+    border: none;
+    border-radius: 999px;
+    padding: 11px 18px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.18s, transform 0.12s;
+  }
+  button:hover { opacity: 0.88; }
+  button:active { transform: scale(0.97); }
+  .primary { background: var(--rose); color: white; }
+  .secondary { background: var(--rose-pale); color: var(--rose); }
+  .dark { background: #0d0a12; color: rgba(255,255,255,0.82); }
+  .admin-toggle {
+    background: rgba(196,86,122,0.08);
+    color: var(--rose);
+    border: 0.5px solid rgba(196,86,122,0.22);
+    white-space: nowrap;
+    padding: 9px 14px;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+  .admin-toggle:hover { background: rgba(196,86,122,0.14); opacity: 1; }
+
+  /* ── 유틸 ── */
+  .hidden { display: none !important; }
+  .status {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-top: 10px;
+    min-height: 18px;
+  }
+
+  /* ── 로그인 팝업 모달 ── */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(13,10,18,0.5);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .modal-card {
+    width: min(100%, 300px);
+    background: var(--cream);
+    border: 0.5px solid rgba(212,184,150,0.4);
+    border-radius: 20px;
+    padding: 22px 20px 18px;
+    box-shadow: 0 24px 70px rgba(0,0,0,0.3);
+    position: relative;
+    animation: modalIn 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(0.92) translateY(10px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    background: rgba(196,86,122,0.08);
+    color: var(--rose);
+    font-size: 16px;
+    border-radius: 999px;
+  }
+  .modal-card .section-label { font-size: 9px; letter-spacing: 3px; margin-bottom: 4px; }
+  .modal-card .section-title { font-size: 19px; margin-bottom: 4px; margin-right: 30px; }
+  .modal-card .hint { font-size: 11px; line-height: 1.6; margin-bottom: 14px; }
+  .modal-card input { padding: 10px 12px; font-size: 13px; border-radius: 10px; margin-bottom: 8px; }
+  .modal-card button.primary { width: 100%; padding: 11px 14px; font-size: 13px; border-radius: 10px; }
+  .modal-card .status { font-size: 11px; margin-top: 6px; }
+
+  /* ── 푸터 ── */
+  .footer {
+    background: #0d0a12;
+    padding: 28px 24px;
+    text-align: center;
+    color: rgba(255,255,255,0.35);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+  }
+
+  body.modal-open { overflow: hidden; }
+
+  /* ════════════════════════════════════════
+     데스크톱 레이아웃 (900px+)
+     - page-frame을 넓게 펼치고
+     - 히어로 + 메인을 나란히 배치
+  ════════════════════════════════════════ */
+  @media (min-width: 900px) {
+    body {
+      padding: 40px;
+      align-items: flex-start;
+    }
+    .page-frame {
+      max-width: 1160px;
+      width: 100%;
+      min-height: calc(100vh - 80px);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.4);
+
+      /* PC: 좌우 2단 — 히어로(왼) + 콘텐츠(오) */
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      grid-template-rows: auto 1fr auto;
+      grid-template-areas:
+        "hero content"
+        "hero content"
+        "foot foot";
+    }
+
+    /* ── 히어로: 왼쪽 세로 패널 ── */
+    .story-hero {
+      grid-area: hero;
+      min-height: 100%;
+      padding: 52px 44px;
+      position: sticky;
+      top: 0;
+      height: calc(100vh - 80px);
+      justify-content: flex-end;
+      gap: 0;
+    }
+    .story-hero .top-link { margin-bottom: auto; }
+    .story-title { font-size: 52px; }
+    .story-subtitle { font-size: 13.5px; margin-top: 18px; }
+
+    /* ── 오른쪽 콘텐츠 영역 ── */
+    .desktop-content {
+      grid-area: content;
+      background: var(--cream);
+      overflow-y: auto;
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+    .main-section {
+      padding: 48px 56px 32px;
+    }
+    .editor-section {
+      padding: 0 56px 48px;
+    }
+
+    /* ── 글 목록 ── */
+    .story-list { gap: 18px; }
+    .story-card { padding: 24px 22px; }
+    .story-card h3 { font-size: 17px; }
+
+    /* 에디터 패널 (PC에서는 목록 아래에 붙어있음) */
+    .panel { max-width: 560px; }
+
+    /* ── 푸터 ── */
+    .footer {
+      grid-area: foot;
+      padding: 22px 40px;
+    }
+  }
+
+  /* 1300px+ 에서는 에디터를 오른쪽에 나란히 */
+  @media (min-width: 1300px) {
+    .page-frame {
+      grid-template-columns: 360px 1fr;
+    }
+    .desktop-content {
+      display: block;
+    }
+    .main-section {
+      padding: 52px 64px 20px;
+    }
+    .editor-section {
+      padding: 0 64px 52px;
+    }
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 32px;
+      align-items: start;
+    }
+    .editor-section {
+      grid-column: unset;
+    }
+    .panel { max-width: none; position: sticky; top: 32px; }
+  }
+</style>
+</head>
+<body>
+<div class="page-frame">
+
+  <!-- 히어로 (모바일: 상단, PC: 왼쪽) -->
+  <header class="story-hero">
+    <a class="top-link" href="index.html">← Wedding Invitation</a>
+    <div>
+      <div class="story-label">Story Archive</div>
+      <h1 class="story-title">Shin Haeya<br><span style="color:var(--rose-light);">& Yoon Juyeon</span></h1>
+      <p class="story-subtitle">둘의 이야기를 조용히 남겨두는 페이지입니다.<br>아래에서 바로 글을 볼 수 있습니다.</p>
+    </div>
+  </header>
+
+  <!-- 오른쪽 콘텐츠 (PC에서 스크롤되는 영역) -->
+  <div class="desktop-content">
+
+    <!-- 글 목록 섹션 -->
+    <main class="main-section">
+      <div class="section-head">
+        <div>
+          <span class="section-label">Archive</span>
+          <h2 class="section-title">Story Backup</h2>
+          <p class="hint">방문자는 글을 바로 읽을 수 있고, 글쓰기는 관리자만 할 수 있습니다.</p>
+        </div>
+        <button class="admin-toggle" id="adminToggle" type="button">관리자 글쓰기</button>
+      </div>
+
+      <section class="story-list" id="storyList">
+        <div class="empty">글을 불러오는 중입니다.</div>
+      </section>
+    </main>
+
+    <!-- 에디터 패널 (로그인 후에만 보임) -->
+    <div class="editor-section">
+      <div class="panel hidden" id="editorPanel">
+        <span class="section-label">Write Story</span>
+        <h2 class="section-title" style="margin-bottom:16px;">새 글 작성</h2>
+        <input id="storyTitle" type="text" placeholder="제목">
+        <textarea id="storyContent" placeholder="여기에 이야기를 적어주세요."></textarea>
+        <div class="button-row">
+          <button class="primary" id="saveBtn" type="button">저장하기</button>
+          <button class="secondary hidden" id="cancelEditBtn" type="button">수정 취소</button>
+          <button class="dark" id="logoutBtn" type="button">로그아웃</button>
+        </div>
+        <div class="status" id="saveStatus"></div>
+      </div>
+    </div>
+
+  </div><!-- /desktop-content -->
+
+  <footer class="footer">With Love · Story Archive</footer>
+</div>
+
+<!-- ── 로그인 팝업 모달 ── -->
+<div class="modal-backdrop hidden" id="loginModal" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+    <button class="modal-close" id="hideLoginBtn" type="button" aria-label="로그인 팝업 닫기">×</button>
+    <span class="section-label">Admin Login</span>
+    <h2 class="section-title" id="loginTitle">글쓰기 로그인</h2>
+    <p class="hint">관리자 계정으로만 글을 쓸 수 있습니다.</p>
+    <input id="email" type="email" placeholder="관리자 이메일" autocomplete="email">
+    <input id="password" type="password" placeholder="비밀번호" autocomplete="current-password">
+    <div class="button-row">
+      <button class="primary" id="loginBtn" type="button">로그인</button>
+    </div>
+    <div class="status" id="authStatus"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script>
+  const client = supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+  const ADMIN_EMAIL = window.STORY_ADMIN_EMAIL;
+
+  const $ = (id) => document.getElementById(id);
+  let currentUser = null;
+  let editingId = null;
+  let cachedStories = [];
+
+  function setStatus(target, message) {
+    $(target).textContent = message || '';
+  }
+
+  function escapeHtml(value) {
+    return String(value || '')
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;')
+      .replaceAll("'", '&#039;');
+  }
+
+  function formatDate(value) {
+    if (!value) return '';
+    const date = new Date(value);
+    return date.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
+  }
+
+  function isAdmin(user) {
+    return user && user.email === ADMIN_EMAIL;
+  }
+
+  function openLoginModal() {
+    $('loginModal').classList.remove('hidden');
+    $('loginModal').setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+    setTimeout(() => $('email').focus(), 50);
+  }
+
+  function closeLoginModal() {
+    $('loginModal').classList.add('hidden');
+    $('loginModal').setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+    setStatus('authStatus', '');
+  }
+
+  async function refreshSession() {
+    const { data } = await client.auth.getSession();
+    currentUser = data.session?.user || null;
+    renderAuthState();
+    await loadStories();
+  }
+
+  function renderAuthState() {
+    if (isAdmin(currentUser)) {
+      $('adminToggle').classList.add('hidden');
+      $('editorPanel').classList.remove('hidden');
+      closeLoginModal();
+    } else {
+      $('editorPanel').classList.add('hidden');
+      $('adminToggle').classList.remove('hidden');
+      if (currentUser && !isAdmin(currentUser)) {
+        openLoginModal();
+        setStatus('authStatus', '관리자 이메일만 글을 작성할 수 있습니다.');
+      }
+    }
+  }
+
+  async function loadStories() {
+    const { data, error } = await client
+      .from('stories')
+      .select('id,title,content,created_at,user_id')
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      $('storyList').innerHTML = `<div class="empty">글을 불러오지 못했습니다.<br>${escapeHtml(error.message)}</div>`;
+      return;
+    }
+
+    cachedStories = data || [];
+
+    if (!cachedStories.length) {
+      $('storyList').innerHTML = '<div class="empty">아직 저장된 글이 없습니다.<br>관리자로 로그인하면 첫 글을 남길 수 있습니다.</div>';
+      return;
+    }
+
+    $('storyList').innerHTML = cachedStories.map(story => `
+      <article class="story-card">
+        <h3>${escapeHtml(story.title)}</h3>
+        <div class="story-date">${escapeHtml(formatDate(story.created_at))}</div>
+        <div class="story-content">${escapeHtml(story.content)}</div>
+        ${isAdmin(currentUser) ? `
+          <div class="story-actions">
+            <button class="secondary" type="button" data-edit="${story.id}">수정</button>
+            <button class="dark" type="button" data-delete="${story.id}">삭제</button>
+          </div>
+        ` : ''}
+      </article>
+    `).join('');
+
+    document.querySelectorAll('[data-edit]').forEach(btn => {
+      btn.addEventListener('click', () => startEdit(btn.dataset.edit));
+    });
+    document.querySelectorAll('[data-delete]').forEach(btn => {
+      btn.addEventListener('click', () => deleteStory(btn.dataset.delete));
+    });
+  }
+
+  function startEdit(id) {
+    const story = cachedStories.find(item => item.id === id);
+    if (!story) return;
+    editingId = id;
+    $('storyTitle').value = story.title || '';
+    $('storyContent').value = story.content || '';
+    $('cancelEditBtn').classList.remove('hidden');
+    $('saveBtn').textContent = '수정 저장';
+    $('editorPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function resetEditor() {
+    editingId = null;
+    $('storyTitle').value = '';
+    $('storyContent').value = '';
+    $('cancelEditBtn').classList.add('hidden');
+    $('saveBtn').textContent = '저장하기';
+    setStatus('saveStatus', '');
+  }
+
+  async function saveStory() {
+    if (!isAdmin(currentUser)) {
+      setStatus('saveStatus', '관리자 로그인 후 저장할 수 있습니다.');
+      return;
+    }
+    const title = $('storyTitle').value.trim();
+    const content = $('storyContent').value.trim();
+    if (!title || !content) {
+      setStatus('saveStatus', '제목과 내용을 모두 입력해주세요.');
+      return;
+    }
+
+    setStatus('saveStatus', '저장 중입니다...');
+
+    const payload = { title, content, user_id: currentUser.id };
+    const result = editingId
+      ? await client.from('stories').update({ title, content }).eq('id', editingId)
+      : await client.from('stories').insert(payload);
+
+    if (result.error) {
+      setStatus('saveStatus', result.error.message);
+      return;
+    }
+
+    resetEditor();
+    setStatus('saveStatus', '저장되었습니다!');
+    await loadStories();
+  }
+
+  async function deleteStory(id) {
+    if (!isAdmin(currentUser)) return;
+    const ok = confirm('이 글을 삭제할까요?');
+    if (!ok) return;
+    const { error } = await client.from('stories').delete().eq('id', id);
+    if (error) {
+      setStatus('saveStatus', error.message);
+      return;
+    }
+    await loadStories();
+  }
+
+  async function login() {
+    const email = $('email').value.trim();
+    const password = $('password').value;
+    if (!email || !password) {
+      setStatus('authStatus', '이메일과 비밀번호를 입력해주세요.');
+      return;
+    }
+    const { data, error } = await client.auth.signInWithPassword({ email, password });
+    if (error) {
+      setStatus('authStatus', error.message);
+      return;
+    }
+    currentUser = data.user;
+    renderAuthState();
+    await loadStories();
+  }
+
+  async function logout() {
+    await client.auth.signOut();
+    currentUser = null;
+    resetEditor();
+    renderAuthState();
+    await loadStories();
+  }
+
+  $('adminToggle').addEventListener('click', openLoginModal);
+  $('hideLoginBtn').addEventListener('click', closeLoginModal);
+  $('loginModal').addEventListener('click', (event) => {
+    if (event.target === $('loginModal')) closeLoginModal();
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !$('loginModal').classList.contains('hidden')) closeLoginModal();
+  });
+  $('password').addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') login();
+  });
+  $('loginBtn').addEventListener('click', login);
+  $('saveBtn').addEventListener('click', saveStory);
+  $('cancelEditBtn').addEventListener('click', resetEditor);
+  $('logoutBtn').addEventListener('click', logout);
+
+  client.auth.onAuthStateChange((_event, session) => {
+    currentUser = session?.user || null;
+    renderAuthState();
+    loadStories();
+  });
+
+  refreshSession();
+</script>
+</body>
+</html>
